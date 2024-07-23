@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Moments - Self-Hypnosis Tool</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+        }
+        #container {
+            text-align: center;
+        }
+        #breathCircle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #16213e;
+            margin: 20px auto;
+            transition: transform 4s ease-in-out;
+        }
+        #affirmation {
+            font-size: 24px;
+            margin: 20px 0;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        #customAffirmation {
+            margin-top: 20px;
+        }
+        input, button {
+            font-size: 16px;
+            padding: 5px 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Mindful Moments</h1>
+        <div id="breathCircle"></div>
+        <div id="instruction">Focus on your breathing</div>
+        <div id="affirmation"></div>
+        <div id="customAffirmation">
+            <input type="text" id="affirmationInput" placeholder="Enter your affirmation">
+            <button onclick="addAffirmation()">Add Affirmation</button>
+        </div>
+    </div>
+
+    <script>
+        const breathCircle = document.getElementById('breathCircle');
+        const instruction = document.getElementById('instruction');
+        const affirmationElement = document.getElementById('affirmation');
+        const affirmationInput = document.getElementById('affirmationInput');
+
+        let affirmations = [
+            "I am calm and centered",
+            "I embrace peace and tranquility",
+            "I am in control of my thoughts and emotions",
+            "Each breath brings me deeper relaxation",
+            "I release all tension and negativity"
+        ];
+
+        function breathe() {
+            breathCircle.style.transform = 'scale(1.5)';
+            instruction.textContent = 'Inhale...';
+            
+            setTimeout(() => {
+                breathCircle.style.transform = 'scale(1)';
+                instruction.textContent = 'Exhale...';
+            }, 4000);
+        }
+
+        function showAffirmation() {
+            const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+            affirmationElement.textContent = randomAffirmation;
+            affirmationElement.style.opacity = 1;
+
+            setTimeout(() => {
+                affirmationElement.style.opacity = 0;
+            }, 5000);
+        }
+
+        function addAffirmation() {
+            const newAffirmation = affirmationInput.value.trim();
+            if (newAffirmation) {
+                affirmations.push(newAffirmation);
+                affirmationInput.value = '';
+                alert('Affirmation added successfully!');
+            }
+        }
+
+        function startSession() {
+            setInterval(breathe, 8000);
+            setInterval(showAffirmation, 16000);
+        }
+
+        startSession();
+    </script>
+</body>
+</html>
